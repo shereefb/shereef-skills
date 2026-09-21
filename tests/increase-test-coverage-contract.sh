@@ -42,7 +42,7 @@ expect_not_contains "$skill_file" 'Linear coverage ledger'
 expect_contains "$repository_ledger" 'docs/testing/coverage-ledger/'
 expect_contains "$repository_ledger" 'Do not create or update a Linear coverage tracking issue.'
 expect_contains "$repository_ledger" 'For `NO_HIGH_VALUE_TARGET` or an investigated blocked outcome, use the same sequence with a ledger-only pull request.'
-expect_contains "$repository_ledger" 'It performs no write and opens no new pull request.'
+expect_contains "$repository_ledger" '`OPEN_COVERAGE_PR` is a preflight admission stop. It performs no write and opens no new pull request.'
 expect_contains_all "$bug_reference" 'Ready to Build' 'milestone'
 
 printf 'Coverage ledger contract passed: 9 checks\n'
