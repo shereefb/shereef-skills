@@ -1,7 +1,7 @@
 # Skill update prompts design
 
 Date: 2026-09-20
-Status: Approved in conversation, pending written-spec review
+Status: Approved
 
 ## Goal
 
