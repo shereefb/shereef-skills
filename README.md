@@ -69,11 +69,38 @@ Choose either the universal Claude Code installation or the Claude plugin. Insta
 
 ## Update or remove
 
+Check this collection for an available update from a repository checkout:
+
+```bash
+bash scripts/check-for-updates.sh
+```
+
 Update the global skill installed through the `skills` CLI:
 
 ```bash
 npx skills@latest update --global increase-test-coverage
 ```
+
+### Optional weekly update prompt on macOS
+
+Install a per-user update prompt from a repository checkout:
+
+```bash
+bash scripts/install-update-prompt-macos.sh
+```
+
+The installer copies the checker into `~/Library/Application Support/Shereef Skills`
+and creates a launch agent that runs every Monday at 10:00 in your local time.
+It stays quiet when the installed skill is current. When an update exists, it
+shows the manual update command. It never changes an installed skill.
+
+The checkout is not required after installation. Remove the prompt with:
+
+```bash
+bash scripts/uninstall-update-prompt-macos.sh
+```
+
+Removal keeps diagnostic logs under `~/Library/Logs/Shereef Skills`.
 
 Remove it from both agents:
 

@@ -234,6 +234,18 @@ for installed_file in "$installed_checker" "$installed_plist"; do
   assert_contains "$installed_file" "$marker"
 done
 
+if [[ ! -x "$installed_checker" ]]; then
+  printf 'FAIL: installed checker is not executable\n' >&2
+  exit 1
+fi
+
+if command -v plutil >/dev/null 2>&1; then
+  if ! plutil -lint "$installed_plist" >/dev/null; then
+    printf 'FAIL: installer wrote an invalid property list\n' >&2
+    exit 1
+  fi
+fi
+
 assert_contains "$installed_plist" "$installed_checker"
 assert_contains "$installed_plist" '<key>Weekday</key><integer>1</integer>'
 assert_contains "$installed_plist" '<key>Hour</key><integer>10</integer>'

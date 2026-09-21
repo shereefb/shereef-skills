@@ -128,3 +128,5 @@ printf '%s\n' 'interface: [broken' > "$yaml_root/skills/example-skill/agents/ope
 expect_fail 'invalid Codex metadata' "$yaml_root" 'invalid YAML'
 
 printf 'Validator tests passed: 6 cases\n'
+
+bash "$repo_root/tests/update-prompts.sh"
