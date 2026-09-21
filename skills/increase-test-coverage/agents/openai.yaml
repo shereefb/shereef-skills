@@ -1,0 +1,4 @@
+interface:
+  display_name: "Increase Test Coverage"
+  short_description: "Add strategic tests and validate discovered bugs"
+  default_prompt: "Use $increase-test-coverage to run one strategic coverage wave in this repository."
