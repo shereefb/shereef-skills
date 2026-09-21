@@ -43,7 +43,7 @@ After completing the selected tests, final resynchronization, and verification, 
 
 For `NO_HIGH_VALUE_TARGET` or an investigated blocked outcome, use the same sequence with a ledger-only pull request. Record what was inspected, why the wave stopped, and what evidence could change the result. This prevents another wave from repeating the investigation without new information.
 
-`OPEN_COVERAGE_PR` is a preflight admission stop. It performs no write and opens no pull request because the existing coverage or ledger-only pull request already occupies the lane, unless the user assigned disjoint domains.
+`OPEN_COVERAGE_PR` is a preflight admission stop. It performs no write and opens no new pull request. The existing coverage or ledger-only pull request already occupies the lane, unless the user assigned disjoint domains.
 
 ## Storage boundary
 

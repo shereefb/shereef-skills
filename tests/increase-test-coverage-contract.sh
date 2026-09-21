@@ -40,9 +40,9 @@ expect_absent "$linear_ledger"
 expect_contains "$skill_file" 'references/repository-coverage-ledger.md'
 expect_not_contains "$skill_file" 'Linear coverage ledger'
 expect_contains "$repository_ledger" 'docs/testing/coverage-ledger/'
-expect_contains "$repository_ledger" 'NO_HIGH_VALUE_TARGET'
-expect_contains "$repository_ledger" 'OPEN_COVERAGE_PR'
-expect_contains "$repository_ledger" 'Linear coverage tracking issue'
+expect_contains "$repository_ledger" 'Do not create or update a Linear coverage tracking issue.'
+expect_contains "$repository_ledger" 'For `NO_HIGH_VALUE_TARGET` or an investigated blocked outcome, use the same sequence with a ledger-only pull request.'
+expect_contains "$repository_ledger" 'It performs no write and opens no new pull request.'
 expect_contains_all "$bug_reference" 'Ready to Build' 'milestone'
 
 printf 'Coverage ledger contract passed: 9 checks\n'
