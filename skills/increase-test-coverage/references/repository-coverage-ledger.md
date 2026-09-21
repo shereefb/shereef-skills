@@ -39,6 +39,12 @@ Combine this history with fresh Git churn, current coverage, live Linear bugs, a
 
 After completing the selected tests, final resynchronization, and verification, write an uncommitted draft entry with all available evidence. Commit and push the tests plus the draft entry. Open one pull request. Finalize the entry with the pull-request URL and terminal outcome, then commit, push, and read back the finalized entry from the branch. Verify its metadata and required evidence before reporting completion.
 
+## Storage and publication failure
+
+If the ledger directory is unwritable, or commit, push, pull-request creation, finalization, or readback fails, preserve any available draft and evidence in a temporary file or the current branch. Report `BLOCKED_BY_DEPENDENCY` with the exact incomplete step and any existing branch or pull request. Do not claim `READY_FOR_REVIEW` or durable memory until the finalized entry is pushed and read back.
+
+If storage itself is unavailable, allow no ledger write. If a pull request already exists, resume and finalize that record instead of opening a second pull request. This exception applies only to storage or publication failure. Ordinary investigated blocked outcomes and `NO_HIGH_VALUE_TARGET` still use the ledger-only pull-request sequence.
+
 ## Blocked and no-target outcomes
 
 For `NO_HIGH_VALUE_TARGET` or an investigated blocked outcome, use the same sequence with a ledger-only pull request. Record what was inspected, why the wave stopped, and what evidence could change the result. This prevents another wave from repeating the investigation without new information.

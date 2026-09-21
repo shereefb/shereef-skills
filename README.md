@@ -141,6 +141,7 @@ After installation, validate each SKILL.md and supporting reference, confirm tha
 Run the fixture tests and repository validator:
 
 ```bash
+bash tests/increase-test-coverage-contract.sh
 bash tests/validate.sh
 bash scripts/validate.sh
 ```

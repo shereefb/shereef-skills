@@ -16,6 +16,7 @@ Run one bounded coverage wave. Improve confidence in important behavior, not the
 - Treat every new failure as a candidate finding. Do not fix an existing product bug in this wave.
 - Always use Linear for confirmed bugs. File them as Bug, **Ready to Build**, with the owning milestone. Never use Todo.
 - Use one repository coverage ledger as durable memory across runs and machines. Read and update it as described in [references/repository-coverage-ledger.md](references/repository-coverage-ledger.md). Do not create or update a Linear coverage tracking issue.
+- If repository-ledger storage or publication fails, preserve any available draft and evidence, report `BLOCKED_BY_DEPENDENCY` with the incomplete step, and do not claim `READY_FOR_REVIEW` or durable memory. Follow the failure rule in [references/repository-coverage-ledger.md](references/repository-coverage-ledger.md).
 - Never run the complete integration or end-to-end suite during ordinary iteration. Read [references/execution-and-verification.md](references/execution-and-verification.md) before choosing test commands.
 
 ## One-pass workflow
@@ -41,6 +42,6 @@ Stop with one of these explicit outcomes:
 - `BLOCKED_BY_DEPENDENCY`: required preview, service, credential, or tool is unavailable.
 - `OPEN_COVERAGE_PR`: a prior wave must land before another starts. Perform no write.
 
-For an investigated blocked outcome, use a ledger-only pull request. `OPEN_COVERAGE_PR` is the only terminal outcome that performs no ledger write.
+For an investigated blocked outcome, use a ledger-only pull request. Except when ledger storage is unavailable, `OPEN_COVERAGE_PR` is the only terminal outcome that performs no ledger write.
 
 Use the final-report contract in the execution reference. Counts without a terminal summary or exit code are not proof.
