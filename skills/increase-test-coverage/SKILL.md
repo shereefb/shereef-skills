@@ -15,24 +15,26 @@ Run one bounded coverage wave. Improve confidence in important behavior, not the
 - Derive expectations from accepted contracts and observable behavior. Never copy the current implementation into assertions.
 - Treat every new failure as a candidate finding. Do not fix an existing product bug in this wave.
 - Always use Linear for confirmed bugs. File them as Bug, **Ready to Build**, with the owning milestone. Never use Todo.
+- Use one repository-specific Linear coverage ledger as durable memory across runs and machines. Read and update it as described in [references/linear-coverage-ledger.md](references/linear-coverage-ledger.md). Do not use repository receipts as the default memory store.
 - Never run the complete integration or end-to-end suite during ordinary iteration. Read [references/execution-and-verification.md](references/execution-and-verification.md) before choosing test commands.
 
 ## One-pass workflow
 
-1. Read repository instructions, test configuration, coverage setup, recent receipts, open coverage pull requests, and live Linear conventions. Record the base SHA and current test health.
-2. Establish a comparable baseline. Rank domains by consequence, relative churn, coverage gap, oracle strength, and test cost. Read [references/target-selection.md](references/target-selection.md).
+1. Read repository instructions, test configuration, coverage setup, open coverage pull requests, the repository's Linear coverage ledger, and live Linear conventions. Record the base SHA and current test health.
+2. Establish a comparable baseline. Rank domains by consequence, relative churn, coverage gap, oracle strength, test cost, and prior wave evidence. Read [references/target-selection.md](references/target-selection.md).
 3. Select one coherent behavior matrix. Do not choose unrelated files or a target count.
 4. Write the smallest faithful tests. Add a boundary or adversarial case per behavior class. Avoid incidental snapshots and mocks of the unit under test.
 5. Prove sensitivity per behavior class with existing mutation tooling or a temporary behavioral perturbation. Confirm the intended failure, restore the change, and inspect the diff. Never add a mutation dependency unattended.
 6. For a possible existing bug, pause that finding and follow [references/bug-validation-and-linear.md](references/bug-validation-and-linear.md). Continue independent matrix work when safe.
-7. Run tiered gates, collect comparable coverage, update impact and duration evidence, and write the receipt required by [references/execution-and-verification.md](references/execution-and-verification.md).
+7. Run tiered gates, collect comparable coverage, and prepare impact, duration, finding, and next-target evidence.
 8. Fetch again. Merge advanced `origin/main`, resolve only in-scope conflicts, and rerun affected gates. Commit and open one pull request against `main`. Do not merge it.
+9. Append the final terminal record required by [references/linear-coverage-ledger.md](references/linear-coverage-ledger.md), including the final head SHA, pull-request link, and post-resync gates. Update and verify the ledger rollup before reporting completion.
 
 ## Loop and stop contract
 
 Stop with one of these explicit outcomes:
 
-- `READY_FOR_REVIEW`: one pull request is open with passing required gates and a complete receipt.
+- `READY_FOR_REVIEW`: one pull request is open with passing required gates and a complete Linear ledger entry.
 - `NO_HIGH_VALUE_TARGET`: evidence shows no suitable matrix for this pass.
 - `BLOCKED_BY_BASELINE`: existing health prevents trustworthy comparison or acceptance.
 - `BLOCKED_BY_CONTRACT`: expected behavior or the owning Linear milestone cannot be established.

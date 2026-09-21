@@ -49,9 +49,11 @@ Reproduce an existing failure before attributing it to the wave. If instrumentat
 
 If baseline health prevents trustworthy work, record `BLOCKED_BY_BASELINE`. File a Linear bug only after the independent validation gate in the bug reference.
 
-## Receipt
+## Evidence record
 
-Follow repository conventions. Otherwise write `docs/testing/YYYY-MM-DD-coverage-wave-<domain>.md` with:
+Write the durable run record to the repository's Linear coverage ledger. Put the review-facing subset in the pull-request description. Only add a repository receipt when repository instructions explicitly require one.
+
+The Linear record contains:
 
 1. Base SHA, head SHA, branch, and pull request.
 2. Why this domain outranked alternatives.
@@ -64,7 +66,9 @@ Follow repository conventions. Otherwise write `docs/testing/YYYY-MM-DD-coverage
 9. Unconfirmed candidates and why they were not filed.
 10. Full suites deliberately not run and the lane that owns them.
 11. Confirmed impact-map additions and measured durations.
-12. The next recommended domain matrix.
+12. The next recommended domain matrix and how prior ledger evidence influenced this wave.
+
+Keep raw command and test logs in temporary workspace files or CI artifacts and link them when a durable URL exists. Do not commit raw logs merely to preserve the skill's history. Terminal summaries, exit codes, durations, and relevant failure excerpts belong in the ledger entry.
 
 ## Final resync
 

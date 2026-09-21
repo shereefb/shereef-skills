@@ -11,6 +11,7 @@ Choose one domain where added tests reduce meaningful risk. Coverage identifies 
 - Existing unit, integration, and end-to-end tests.
 - Whether the behavior has a strong oracle in an accepted product specification, API contract, schema invariant, migration, security rule, or public interface.
 - Setup cost and the narrowest test layer that can prove the behavior.
+- Prior wave outcomes from the repository's Linear coverage ledger: attempted and deferred matrices, coverage gain, bug yield, ruled-out findings, runtimes, flakes, and the last recommendation.
 
 Do not rank generated code, vendored code, obsolete paths, or low-use presentation wrappers ahead of active domain behavior merely because their percentage is low.
 
@@ -28,6 +29,18 @@ Use the evidence as a decision aid, not a mechanical formula:
 | Cost | Fast deterministic tests with isolated setup |
 
 Reject candidates whose only oracle is the implementation. If the contract is ambiguous, record `BLOCKED_BY_CONTRACT` for that candidate and choose another domain.
+
+## Learn from prior waves
+
+Use the Linear ledger as evidence, not as an instruction to repeat its last recommendation blindly.
+
+- Prefer an untested high-risk matrix over repeating a recent low-yield slice.
+- Revisit a prior domain when it has meaningful new churn, an incomplete matrix, a newly confirmed bug family, or a stronger oracle.
+- Treat repeated setup failures, long durations, and flakes as selection cost until evidence shows they were resolved.
+- Carry forward deferred matrices and ruled-out bug patterns so another machine does not repeat the same investigation without new evidence.
+- Explain in the next ledger entry how prior outcomes affected the selected slice.
+
+Git history remains the source for current code churn. The ledger records what coverage waves learned from that codebase; it is not a substitute for fresh repository and Linear evidence.
 
 ## Behavior matrix
 
@@ -64,6 +77,8 @@ Do not replace an integration invariant with mocks or a browser invariant with c
 - Prefer explicit assertions over broad snapshots.
 - Include a case that would fail under the most plausible wrong implementation.
 
-## Impact map
+## Impact history
 
-Maintain the repository's existing test-impact map. If none exists and repository conventions permit it, create `docs/testing/test-impact-map.json` with domain entries that list production paths, unit tests, integration tests, end-to-end tests, required services, and observed durations. Add only mappings confirmed by successful runs. Do not claim that an inferred mapping is complete.
+Record confirmed mappings between production paths, unit tests, integration tests, end-to-end tests, required services, and observed durations in the Linear ledger. Add only mappings confirmed by successful runs. Do not claim that an inferred mapping is complete.
+
+Update a repository-owned impact map only when that artifact already exists or repository instructions require it. Do not create one merely to give this skill memory.

@@ -11,7 +11,7 @@ An unexpected result is a candidate finding, not a bug. Try to disprove it befor
 5. Ask a fresh-context subagent using the highest-capability available model and high reasoning to investigate independently. Give it the contract source, reproduction patch, command, output, and base SHA. Tell it to falsify the finding and forbid product edits or external writes.
 6. Require one classification: `CONFIRMED_PRODUCT_BUG`, `TEST_BUG`, `TEST_INFRA_BUG`, `ENVIRONMENTAL`, `CONTRACT_AMBIGUITY`, `EXPECTED_BEHAVIOR`, or `INCONCLUSIVE`.
 
-If an independent subagent is unavailable, preserve the candidate in the receipt and do not file it as a bug.
+If an independent subagent is unavailable, preserve the candidate in the Linear ledger entry and do not file it as a bug.
 
 ## Reproducer policy
 
