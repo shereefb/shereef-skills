@@ -1,0 +1,38 @@
+name: Validate skills
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+
+      - name: Test repository validator
+        run: bash tests/validate.sh
+
+      - name: Validate repository
+        run: bash scripts/validate.sh
+
+      - name: Check skill discovery
+        env:
+          DISABLE_TELEMETRY: "1"
+        run: npx skills@latest add . --list
