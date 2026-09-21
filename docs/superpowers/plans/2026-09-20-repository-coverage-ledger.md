@@ -20,6 +20,8 @@
 
 ---
 
+Tasks 1 and 2 are one TDD delivery unit. Task 1 deliberately leaves the new contract test red, so the same implementer completes Task 2 before the combined diff receives its task review.
+
 ### Task 1: Add the repository-ledger contract test
 
 **Files:**
