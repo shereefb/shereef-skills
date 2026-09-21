@@ -32,6 +32,9 @@ xml_escape() {
 
 require_replaceable() {
   local target="$1"
+  if [[ -L "$target" ]]; then
+    fail "refusing to replace symlink: $target"
+  fi
   if [[ -e "$target" ]] && ! grep -Fq "$marker" "$target"; then
     fail "refusing to replace unmarked file: $target"
   fi

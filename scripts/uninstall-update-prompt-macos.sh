@@ -17,6 +17,9 @@ fail() {
 
 require_managed_or_missing() {
   local target="$1"
+  if [[ -L "$target" ]]; then
+    fail "refusing to remove symlink: $target"
+  fi
   if [[ -e "$target" ]] && ! grep -Fq "$marker" "$target"; then
     fail "refusing to remove unmarked file: $target"
   fi

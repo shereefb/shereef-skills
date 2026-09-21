@@ -268,6 +268,18 @@ fi
 assert_contains "$install_output" 'refusing to replace unmarked file'
 
 reset_test_home
+mkdir -p "$(dirname "$installed_checker")"
+symlink_target="$fixture_root/marked-symlink-target"
+printf '# %s\nforeign target\n' "$marker" > "$symlink_target"
+ln -s "$symlink_target" "$installed_checker"
+if run_installer; then
+  printf 'FAIL: installer should reject a checker symlink\n' >&2
+  exit 1
+fi
+assert_contains "$install_output" 'refusing to replace symlink'
+assert_contains "$symlink_target" 'foreign target'
+
+reset_test_home
 run_installer
 mkdir -p "$(dirname "$stdout_log")"
 printf 'kept output\n' > "$stdout_log"
@@ -307,4 +319,16 @@ if [[ ! -f "$installed_plist" ]]; then
 fi
 assert_contains "$install_output" 'refusing to remove unmarked file'
 
-printf 'Update prompt tests passed: 11 cases\n'
+reset_test_home
+run_installer
+rm "$installed_checker"
+printf '# %s\nforeign target\n' "$marker" > "$symlink_target"
+ln -s "$symlink_target" "$installed_checker"
+if run_uninstaller; then
+  printf 'FAIL: uninstaller should reject a checker symlink\n' >&2
+  exit 1
+fi
+assert_contains "$install_output" 'refusing to remove symlink'
+assert_contains "$symlink_target" 'foreign target'
+
+printf 'Update prompt tests passed: 13 cases\n'
