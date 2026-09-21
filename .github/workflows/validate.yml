@@ -29,6 +29,9 @@ jobs:
       - name: Test repository validator
         run: bash tests/validate.sh
 
+      - name: Test increase-test-coverage contract
+        run: bash tests/increase-test-coverage-contract.sh
+
       - name: Validate repository
         run: bash scripts/validate.sh
 

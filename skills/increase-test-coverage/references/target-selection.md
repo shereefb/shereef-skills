@@ -11,7 +11,7 @@ Choose one domain where added tests reduce meaningful risk. Coverage identifies 
 - Existing unit, integration, and end-to-end tests.
 - Whether the behavior has a strong oracle in an accepted product specification, API contract, schema invariant, migration, security rule, or public interface.
 - Setup cost and the narrowest test layer that can prove the behavior.
-- Prior wave outcomes from the repository's Linear coverage ledger: attempted and deferred matrices, coverage gain, bug yield, ruled-out findings, runtimes, flakes, and the last recommendation.
+- Prior wave outcomes from the repository coverage ledger: attempted and deferred matrices, coverage gain, bug yield, ruled-out findings, runtimes, flakes, and the last recommendation.
 
 Do not rank generated code, vendored code, obsolete paths, or low-use presentation wrappers ahead of active domain behavior merely because their percentage is low.
 
@@ -32,13 +32,13 @@ Reject candidates whose only oracle is the implementation. If the contract is am
 
 ## Learn from prior waves
 
-Use the Linear ledger as evidence, not as an instruction to repeat its last recommendation blindly.
+Use the repository ledger as evidence, not as an instruction to repeat its last recommendation blindly.
 
 - Prefer an untested high-risk matrix over repeating a recent low-yield slice.
 - Revisit a prior domain when it has meaningful new churn, an incomplete matrix, a newly confirmed bug family, or a stronger oracle.
 - Treat repeated setup failures, long durations, and flakes as selection cost until evidence shows they were resolved.
 - Carry forward deferred matrices and ruled-out bug patterns so another machine does not repeat the same investigation without new evidence.
-- Explain in the next ledger entry how prior outcomes affected the selected slice.
+- Explain in the next repository-ledger entry how prior outcomes affected the selected slice.
 
 Git history remains the source for current code churn. The ledger records what coverage waves learned from that codebase; it is not a substitute for fresh repository and Linear evidence.
 
@@ -79,6 +79,6 @@ Do not replace an integration invariant with mocks or a browser invariant with c
 
 ## Impact history
 
-Record confirmed mappings between production paths, unit tests, integration tests, end-to-end tests, required services, and observed durations in the Linear ledger. Add only mappings confirmed by successful runs. Do not claim that an inferred mapping is complete.
+Record confirmed mappings between production paths, unit tests, integration tests, end-to-end tests, required services, and observed durations in each repository-ledger entry. Add only mappings confirmed by successful runs. Do not claim that an inferred mapping is complete.
 
-Update a repository-owned impact map only when that artifact already exists or repository instructions require it. Do not create one merely to give this skill memory.
+Create no separate impact map unless repository instructions require one.

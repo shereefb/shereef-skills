@@ -51,11 +51,11 @@ If baseline health prevents trustworthy work, record `BLOCKED_BY_BASELINE`. File
 
 ## Evidence record
 
-Write the durable run record to the repository's Linear coverage ledger. Put the review-facing subset in the pull-request description. Only add a repository receipt when repository instructions explicitly require one.
+Write the durable run record to the repository's canonical coverage-ledger entry. Put the review-facing subset in the pull-request description.
 
-The Linear record contains:
+The repository entry contains:
 
-1. Base SHA, head SHA, branch, and pull request.
+1. Required frontmatter: `version`, repository, start and finish times, base SHA, terminal outcome, domain, and pull request. Git history identifies the commits that added and finalized the entry.
 2. Why this domain outranked alternatives.
 3. Expected-behavior sources and completed matrix.
 4. Files changed, limited to tests and test support.
@@ -65,11 +65,11 @@ The Linear record contains:
 8. Confirmed Linear bugs with status and milestone.
 9. Unconfirmed candidates and why they were not filed.
 10. Full suites deliberately not run and the lane that owns them.
-11. Confirmed impact-map additions and measured durations.
+11. Confirmed impact mappings and measured durations.
 12. The next recommended domain matrix and how prior ledger evidence influenced this wave.
 
 Keep raw command and test logs in temporary workspace files or CI artifacts and link them when a durable URL exists. Do not commit raw logs merely to preserve the skill's history. Terminal summaries, exit codes, durations, and relevant failure excerpts belong in the ledger entry.
 
 ## Final resync
 
-Fetch `origin` immediately before handoff. If `origin/main` advanced, merge it into the coverage branch. Never write directly to `main`. Rerun tests affected by the merge, then rerun the acceptance gates needed for current evidence. Open one pull request and stop.
+Fetch `origin` immediately before handoff. If `origin/main` advanced, merge it into the coverage branch. Never write directly to `main`. Rerun tests affected by the merge, then rerun the acceptance gates needed for current evidence. Follow the repository-ledger write sequence before reporting completion. Do not merge the pull request.
