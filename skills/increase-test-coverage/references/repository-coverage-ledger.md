@@ -25,7 +25,7 @@ pull_request: https://github.com/owner/repository/pull/123
 ---
 ```
 
-Require all eight fields in the finalized entry. Do not record the entry's own final commit SHA. That SHA cannot be written into the file it identifies without changing the file and creating a circular value. Git history identifies the commits that added and finalized the entry.
+Require all eight fields in the finalized entry. In rolling mode, `base_sha` is the synchronized branch head immediately before this wave, including earlier waves. Record the branch, synchronized main SHA and prior published wave in the body. Multiple entries may share the same rolling pull-request URL. Do not record the entry's own final commit SHA. That SHA cannot be written into the file it identifies without changing the file and creating a circular value. Git history identifies the commits that added and finalized the entry.
 
 The body records the selected behavior matrix and its authoritative contracts, the ranking and prior-ledger evidence, comparable repository and domain coverage before and after, tests and commands with exit codes, durations, and sensitivity evidence, integration or end-to-end files run, deliberately omitted full suites, and candidate findings classified as `confirmed`, `ruled out`, `not proven`, or by the independent investigator. Record confirmed Linear bugs with their `Ready to Build` status and owning milestones, confirmed impact mappings, blockers, deferred matrices, and the next recommendation.
 
@@ -37,7 +37,7 @@ Combine this history with fresh Git churn, current coverage, live Linear bugs, a
 
 ## Write sequence
 
-After completing the selected tests, final resynchronization, and verification, write an uncommitted draft entry with all available evidence. Commit and push the tests plus the draft entry. Open one pull request. Finalize the entry with the pull-request URL and terminal outcome, then commit, push, and read back the finalized entry from the branch. Verify its metadata and required evidence before reporting completion.
+After completing the selected tests, final resynchronization, and verification, write an uncommitted draft entry with all available evidence. Commit and push the tests plus the draft entry. Open one pull request for a standalone wave, or create or update the selected rolling pull request. Finalize the entry with the pull-request URL and terminal outcome, then commit, push, and read back the finalized entry from the branch. Verify its metadata and required evidence before reporting completion.
 
 ## Storage and publication failure
 
@@ -47,12 +47,14 @@ If storage itself is unavailable, allow no ledger write. If a pull request alrea
 
 ## Blocked and no-target outcomes
 
-For `NO_HIGH_VALUE_TARGET` or an investigated blocked outcome, use the same sequence with a ledger-only pull request. Record what was inspected, why the wave stopped, and what evidence could change the result. This prevents another wave from repeating the investigation without new information.
+For `NO_HIGH_VALUE_TARGET` or an investigated blocked outcome, use the same sequence with a ledger-only result. In rolling mode, append the entry to the existing PR and retain earlier verified waves. Otherwise use a ledger-only pull request. Record what was inspected, why the wave stopped, and what evidence could change the result. This prevents another wave from repeating the investigation without new information.
 
-`OPEN_COVERAGE_PR` is a preflight admission stop. It performs no write and opens no new pull request. The existing coverage or ledger-only pull request already occupies the lane, unless the user assigned disjoint domains.
+`OPEN_COVERAGE_PR` is a preflight admission stop for an unrelated coverage PR or unresolved branch ownership. It performs no write and opens no new pull request. The selected rolling PR permits further verified waves; it does not occupy a competing lane.
+
+`BRANCH_CLOSED` also performs no write. Preserve the closed PR's existing branch and records rather than reopening it to publish another entry.
 
 ## Storage boundary
 
-Keep coverage-wave decisions and results in the repository ledger. Do not create a Linear coverage tracker or separate tracking issue. Do not change entries after their pull requests merge. Keep raw logs in temporary files or CI artifacts, and link durable artifacts when available instead of committing logs.
+Keep coverage-wave decisions and results in the repository ledger. Do not create a Linear coverage tracker or separate tracking issue. Treat finalized entries as historical evidence for their recorded trees. Add corrections and follow-up results in a new entry. Do not change entries after their pull requests merge. Keep raw logs in temporary files or CI artifacts, and link durable artifacts when available instead of committing logs.
 
 Keep confirmed defects in separate Linear Bug issues. File each as `Ready to Build` with its owning milestone, reproduction evidence, and a link to the coverage pull request when available.

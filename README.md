@@ -48,7 +48,7 @@ Codex:
 $increase-test-coverage Run one strategic coverage wave in this repository.
 ```
 
-Each invocation creates at most one pull request and stops. When using an outer loop, wait for that pull request to land and for `main` to change before starting the next wave.
+Each invocation completes one bounded wave. A coverage loop keeps adding verified waves to one dedicated branch and one rolling pull request. It synchronizes main and publishes a separate ledger entry for each wave, then continues without waiting for a merge. Standalone invocations still end after one wave. Landing remains a separate workflow.
 
 ## Optional Claude Code plugin
 

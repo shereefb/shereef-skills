@@ -67,9 +67,16 @@ The repository entry contains:
 10. Full suites deliberately not run and the lane that owns them.
 11. Confirmed impact mappings and measured durations.
 12. The next recommended domain matrix and how prior ledger evidence influenced this wave.
+13. For a rolling loop, the branch, synchronized main SHA, prior published wave, per-wave commit boundary and cumulative validation scope.
 
 Keep raw command and test logs in temporary workspace files or CI artifacts and link them when a durable URL exists. Do not commit raw logs merely to preserve the skill's history. Terminal summaries, exit codes, durations, and relevant failure excerpts belong in the ledger entry.
 
 ## Final resync
 
 Fetch `origin` immediately before handoff. If `origin/main` advanced, merge it into the coverage branch. Never write directly to `main`. Rerun tests affected by the merge, then rerun the acceptance gates needed for current evidence. Follow the repository-ledger write sequence before reporting completion. Do not merge the pull request.
+
+In rolling mode, handoff is publication of this wave on the existing branch and PR. Verify the cumulative coverage diff and gates affected by interactions with earlier waves. READY_FOR_REVIEW allows the next wave without waiting for a merge or new main commit. Read [rolling-branch.md](rolling-branch.md) for branch ownership, lifecycle and comparison rules.
+
+## Final report
+
+Report the terminal outcome, branch and PR URL, finalized published head, required gate results and their verified scope, comparable coverage, any blocker, and whether the loop continues. Distinguish earlier-tree results from current-head verification. In rolling mode, identify the completed wave and cumulative PR scope. Report READY_FOR_REVIEW only after remote ledger readback and all required checks pass on the finalized head.
